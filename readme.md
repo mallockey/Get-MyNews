@@ -7,4 +7,4 @@ A PowerShell script that fetches data from Hacker News and multiple sub reddits 
 The script has one parameter, ExportFolder
 `.\Get-MyNews.ps1 -ExportFolder 'C:\Users\MyUser\Desktop'`
 
-![Usage](https://imgur.com/HvsQ7bH)
+![Usage](/Capture.PNG)
