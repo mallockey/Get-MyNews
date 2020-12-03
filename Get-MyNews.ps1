@@ -92,7 +92,7 @@ $Header = @"
 "@
 
 function Get-TimeStamp {
-  return ((Get-Date -format d)) + " " + (Get-Date -Format t)
+  ((Get-Date -format d)) + " " + (Get-Date -Format t)
 }
 function Get-HeaderLinkHTMLString {
 
