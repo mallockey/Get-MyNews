@@ -201,7 +201,7 @@ $HTML = @"
       )
   </div> 
   <div id=`"footer`">
-    <h2><a href= `"https://github.com/mallockey/`" target=`"_blank`">Github</a></h2>
+    <h2><a href= `"https://github.com/mallockey/Get-MyNews`" target=`"_blank`">Github</a></h2>
       This page was created using PowerShell <br>
       Created on: $(Get-TimeStamp)
   </div>
