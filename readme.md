@@ -8,3 +8,17 @@ The script has one parameter, ExportFolder
 `.\Get-MyNews.ps1 -ExportFolder 'C:\Users\MyUser\Desktop'`
 
 ![Usage](/Capture.PNG)
+
+## Changing URLs
+
+You can set which subreddit or link you want displayed by modifying line 165: 
+
+```
+$HeaderLinksHash = @{
+  FrontEndHappyHour = 'https://frontendhappyhour.com/'
+  SyntaxFM = 'https://syntax.fm/'
+  CodeNewbie = 'https://www.codenewbie.org/podcast'
+} 
+
+$ArrayOfSubreddits = @('programming','learnjavascript','news')
+```
