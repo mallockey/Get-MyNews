@@ -3,6 +3,8 @@ param(
 )
 
 $Header = @"
+<!DOCTYPE html>
+<html>
   <title>My News Sites</title>
   <style>
 
@@ -108,6 +110,27 @@ function Get-HeaderLinkHTMLString {
 "@
   
 }
+
+function Get-DevLinks {
+  
+  
+  $DevLinks = (Invoke-WebRequest -Uri "dev.to").Links
+  $ArticleLinks = $DevLinks | Where-Object {$_.OuterHTML -like "*article-link*"} | Sort-Object ID -Unique
+
+  $HTMLString = @()
+  $HTMLString += "<table>"
+  $HTMLString += "<caption>Dev.to</caption>"
+
+  foreach($Link in $ArticleLinks){
+    $HTMLString += "<tr>"
+    $HTMLString += "$("<td><a href=`'https://dev.to$($Link.href)`'target=`'_blank`'>$($Link.outerHTML -replace '<[^>]+>','')</a></td>")"
+    $HTMLString += "</tr>"
+  }
+
+  $HTMLString += "</table>"
+  $HTMLString
+
+}
 function Get-HackerNewsHTMLString {
 
   $HackerNewsLinks = (Invoke-WebRequest -Uri "https://news.ycombinator.com").Links
@@ -170,7 +193,7 @@ $HeaderLinksHash = @{
   CodeNewbie = 'https://www.codenewbie.org/podcast'
 } 
 
-$ArrayOfSubreddits = @('programming','learnjavascript','news')
+$ArrayOfSubreddits = @('programming','learnjavascript')
 
 try{
   $Header | Out-File $ExportFolder\News.html
@@ -180,7 +203,7 @@ try{
   Exit
 }
 
-$HTML = @"
+$HTML = @" 
 <body>
   <div id=`"header`">
     <h1>My News Sites</h1>
@@ -199,6 +222,7 @@ $HTML = @"
           Get-RedditSubReddit -SubReddit $Subreddit
         }
       )
+      $(Get-DevLinks)
   </div> 
   <div id=`"footer`">
     <h2><a href= `"https://github.com/mallockey/Get-MyNews`" target=`"_blank`">Github</a></h2>
@@ -206,6 +230,7 @@ $HTML = @"
       Created on: $(Get-TimeStamp)
   </div>
 </body>
+</html>
 "@
 
 $HTML | Out-File $ExportFolder\News.html -Append
