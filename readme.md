@@ -20,5 +20,4 @@ $HeaderLinksHash = @{
 }
 
 $ArrayOfSubreddits = @('programming','learnjavascript')
-
 ```
