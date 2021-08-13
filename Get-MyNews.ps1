@@ -1,5 +1,6 @@
 param(
-    [String]$ExportFolder = $PSScriptRoot
+    [String]$ExportFolder = "D:\ScriptOutput\MyNews",
+    [Switch]$WaitForNetwork
 )
 
 $Header = @"
@@ -184,8 +185,19 @@ function Get-RedditSubReddit{
 
 }
 
-############################################################Start here###########################################################
+############################################################Start here##########################################################
 $ErrorActionPreference = "Stop"
+
+if ($WaitForNetwork) {
+  $TimeToWait = 2
+  $CurrentMinute = 0
+  $PingCheck = (Test-NetConnection google.com -Hops 2).PingSucceeded
+  while (($PingCheck -eq $False) -and $CurrentMinute -lt $TimeToWait) {
+    Write-Warning "Not connected to network, waiting for $($TimeToWait - $CurrentMinute) more minutes"
+    Start-Sleep -Seconds 60
+    $CurrentMinute++
+  }
+}
 
 $HeaderLinksHash = @{
   FrontEndHappyHour = 'https://frontendhappyhour.com/'
