@@ -189,13 +189,15 @@ function Get-RedditSubReddit{
 $ErrorActionPreference = "Stop"
 
 if ($WaitForNetwork) {
-  $TimeToWait = 2
-  $CurrentMinute = 0
+  $TimeToWait = 120
+  $CurrentSecond = 0
   $PingCheck = (Test-NetConnection google.com -Hops 2).PingSucceeded
-  while (($PingCheck -eq $False) -and $CurrentMinute -lt $TimeToWait) {
-    Write-Warning "Not connected to network, waiting for $($TimeToWait - $CurrentMinute) more minutes"
-    Start-Sleep -Seconds 60
-    $CurrentMinute++
+  while (($PingCheck -eq $False) -and $CurrentSecond -lt $TimeToWait) {
+    Write-Warning "Not connected to network, waiting for $($TimeToWait - $CurrentSecond) more seconds"
+    Start-Sleep -Seconds 1
+    Clear-Host
+    $PingCheck = (Test-NetConnection google.com -Hops 2).PingSucceeded
+    $CurrentSecond++
   }
   if (!$PingCheck){
     exit
