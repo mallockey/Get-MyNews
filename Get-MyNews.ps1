@@ -197,6 +197,9 @@ if ($WaitForNetwork) {
     Start-Sleep -Seconds 60
     $CurrentMinute++
   }
+  if (!$PingCheck){
+    exit
+  }
 }
 
 $HeaderLinksHash = @{
