@@ -137,9 +137,9 @@ function Get-HackerNewsHTMLString {
   $HackerNewsLinks = (Invoke-WebRequest -Uri "https://news.ycombinator.com").Links
 
   if($PSVersionTable.PSVersion.Major -lt 7){
-    $StoryLinks = $HackerNewsLinks | Where-Object {$_.Class -eq "storylink"} 
+    $StoryLinks = $HackerNewsLinks | Where-Object {$_.Class -eq "titlelink"} 
   }else{
-    $StoryLinks = $HackerNewsLinks |  Where-Object {$_.OuterHTML -like '*class="storylink*'}
+    $StoryLinks = $HackerNewsLinks |  Where-Object {$_.OuterHTML -like '*class="titlelink*'}
   }
 
   $HTMLString = @()
